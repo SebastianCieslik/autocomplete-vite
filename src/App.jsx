@@ -1,12 +1,15 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
 import './App.css'
+import AutoComplete from './AutoComplete.jsx'
 
 function App() {
-  const [] = useState(0)
+  const [count, setCount] = useState(0)
 
   return (
-    Vite xD 
+    <div>
+      Vite Project
+      <AutoComplete/>
+    </div>
   )
 }
 
