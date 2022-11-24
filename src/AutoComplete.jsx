@@ -8,8 +8,8 @@ export default function AutoComplete() {
     });
 
     const onChange = (event) => {
-      setValue(event.target.value);
-    };
+      setAllValues(event.target.value)  
+      };
 
 
   return (
@@ -17,8 +17,8 @@ export default function AutoComplete() {
     <form>
   <label>
     AutoComplete Search
-    <input type="text" name="search1" value={allValues.search1} />
-    <input type="text" name="search2" value={allValues.search2} />
+    <input type="text" name="search1" value={allValues.search1} onChange={onChange} />
+    <input type="text" name="search2" value={allValues.search2} onChange={onChange} />
   </label>
   <input type="submit" value="Submit" />
 </form>
