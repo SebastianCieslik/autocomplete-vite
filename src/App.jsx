@@ -1,16 +1,16 @@
-import { useState } from 'react'
-import './App.css'
-import AutoComplete from './AutoComplete.jsx'
+import { useState } from "react";
+import "./App.css";
+import AutoComplete from "./components/AutoComplete/AutoComplete";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div>
       Vite Project
-      <AutoComplete/>
+      <AutoComplete />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
