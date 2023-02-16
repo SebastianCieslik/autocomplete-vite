@@ -43,3 +43,21 @@ input {
   font-size: 20px;
   width: 500px;
 }
+.dropdown{
+  background-color: white;
+  display:flex;
+  flex-direction: column;
+  border 2px solid black;
+}
+.dropdown:empty{
+  border:none;
+}
+.dropdown::content{
+  border:2px solid black/;
+}
+.dropdown-row{
+  cursor:pointer;
+  text-align: start;
+  margin: 2px 0;
+  border 1px solid black;
+}

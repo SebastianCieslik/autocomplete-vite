@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import InputText from "./InputText";
 import { Container } from "./AutoComplete.styles";
+import data from "./Suggestions.jsx";
+import debounce from "lodash.debounce";
+//import { uuid } from 'uuidv4';
+
 
 const COUNTRIES_LIST = "countries-list";
-const VEGETABLES = "vegetables";
 
 export default function AutoComplete() {
-  const [currentCountry, setCurrentCountry] = useState("Poland");
-  const [currentVegetable, setCurrentVegetable] = useState("Cabage");
+  let [currentCountry, setCurrentCountry] = useState("");
 
   // create container with list of results
   // show this container only when there are any results
@@ -17,16 +19,22 @@ export default function AutoComplete() {
 
   const handleChange = (value, name) => {
     if (name === COUNTRIES_LIST) {
+      console.log('handle')
       setCurrentCountry(value);
-    } else if (name === VEGETABLES) {
-      setCurrentVegetable(value);
     }
   };
+  const debouncedChangeHandler = useCallback(
+    debounce(handleChange, 1000)
+  , []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(`${currentVegetable} living in ${currentCountry}`);
+    console.log(`Looking for  ${currentCountry}`);
   };
+  const handleOption = (e) =>{
+    console.log(`2Looking for  ${currentCountry}`);
+    console.dir(e);
+  }
 
   return (
     <Container size={500}>
@@ -36,16 +44,20 @@ export default function AutoComplete() {
           <InputText
             name={COUNTRIES_LIST}
             defaultValue={currentCountry}
-            // onSubmit={handleSubmit}
-            onChange={(value) => handleChange(value, COUNTRIES_LIST)}
+            onSubmit={handleSubmit}
+            onChange={(value) => debouncedChangeHandler(value, COUNTRIES_LIST)}
           />
-          <div></div>
-          {/* <InputText
-            name={VEGETABLES}
-            defaultValue={currentVegetable}
-            // onSubmit={handleSubmit}
-            onChange={(value) => handleChange(value, VEGETABLES)}
-          /> */}
+          <div className="dropdown">
+            {data.filter(item => {
+              const searchTerm = currentCountry.toLowerCase();
+              const country = item.toLowerCase();
+              return country.startsWith(searchTerm) && (searchTerm.length > 2)
+            })
+            .map((item)=> (
+            <div onClick={() => handleOption(item)} className="dropdown-row">{item}</div>
+            ))}
+            </div>
+
         </label>
         <input type="submit" value="Submit" />
       </form>
